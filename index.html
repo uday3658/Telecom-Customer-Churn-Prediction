@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telco Customer Churn Predictor</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="background-decor">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="badge">Predictive AI</div>
+            <h1>Telco Customer Churn</h1>
+            <p class="subtitle">Predict risk score and analyze retention metrics for individual subscribers in real-time.</p>
+        </header>
+
+        <!-- Presets Card -->
+        <section class="preset-section">
+            <div class="card glass-card">
+                <h3>Quick-Fill Demo Profiles</h3>
+                <p class="card-desc">Instantly populate the form with realistic customer profiles to test the model.</p>
+                <div class="preset-buttons">
+                    <button class="btn btn-preset btn-high-risk" id="presetHighRisk">
+                        <span class="dot red-dot"></span> High Churn Risk
+                    </button>
+                    <button class="btn btn-preset btn-low-risk" id="presetLowRisk">
+                        <span class="dot green-dot"></span> Low Churn Risk
+                    </button>
+                    <button class="btn btn-preset btn-average" id="presetTypical">
+                        <span class="dot blue-dot"></span> Average Customer
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Workspace -->
+        <main class="workspace-grid">
+            <!-- Prediction Form -->
+            <form id="churnForm" class="card glass-card form-card">
+                <h2>Customer Profile details</h2>
+                <div class="form-grid">
+                    
+                    <!-- Section: Demographics -->
+                    <div class="form-section span-full">
+                        <div class="section-title">1. Demographics & Status</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="SeniorCitizen">Senior Citizen</label>
+                        <select id="SeniorCitizen" required>
+                            <option value="0">No (Under 65)</option>
+                            <option value="1">Yes (65+)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Partner">Has Partner</label>
+                        <select id="Partner" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Dependents">Has Dependents</label>
+                        <select id="Dependents" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <!-- Section: Core Services -->
+                    <div class="form-section span-full">
+                        <div class="section-title">2. Subscription Services</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PhoneService">Phone Service</label>
+                        <select id="PhoneService" required>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MultipleLines">Multiple Lines</label>
+                        <select id="MultipleLines" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No phone service">No phone service</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InternetService">Internet Service Provider</label>
+                        <select id="InternetService" required>
+                            <option value="Fiber optic">Fiber optic</option>
+                            <option value="DSL">DSL</option>
+                            <option value="No">None</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="OnlineSecurity">Online Security Addon</label>
+                        <select id="OnlineSecurity" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No internet service">No internet service</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="OnlineBackup">Online Backup Addon</label>
+                        <select id="OnlineBackup" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No internet service">No internet service</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="DeviceProtection">Device Protection Addon</label>
+                        <select id="DeviceProtection" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No internet service">No internet service</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TechSupport">Tech Support Addon</label>
+                        <select id="TechSupport" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No internet service">No internet service</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="StreamingTV">Streaming TV</label>
+                        <select id="StreamingTV" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No internet service">No internet service</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="StreamingMovies">Streaming Movies</label>
+                        <select id="StreamingMovies" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No internet service">No internet service</option>
+                        </select>
+                    </div>
+
+                    <!-- Section: Account & Billing -->
+                    <div class="form-section span-full">
+                        <div class="section-title">3. Billing & Agreement Details</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Contract">Contract Term</label>
+                        <select id="Contract" required>
+                            <option value="Month-to-month">Month-to-month</option>
+                            <option value="One year">One year</option>
+                            <option value="Two year">Two year</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PaperlessBilling">Paperless Billing</label>
+                        <select id="PaperlessBilling" required>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PaymentMethod">Payment Method</label>
+                        <select id="PaymentMethod" required>
+                            <option value="Electronic check">Electronic check</option>
+                            <option value="Mailed check">Mailed check</option>
+                            <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                            <option value="Credit card (automatic)">Credit card (automatic)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenure">Tenure (Months) <span class="val-display" id="tenureVal">12</span></label>
+                        <input type="range" id="tenure" min="0" max="72" value="12" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MonthlyCharges">Monthly Charges ($)</label>
+                        <input type="number" id="MonthlyCharges" min="18" max="120" step="0.05" value="70.35" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TotalCharges">Total Charges ($)</label>
+                        <input type="number" id="TotalCharges" min="0" max="9000" step="0.05" value="844.20" required>
+                    </div>
+
+                    <div class="span-full action-group">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span>Analyze Customer Risk</span>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- Results Output -->
+            <div class="results-column">
+                <div class="card glass-card results-card empty-state" id="resultsCard">
+                    <!-- Default state -->
+                    <div class="results-default" id="resultsDefault">
+                        <div class="spinner-icon hidden" id="spinner"></div>
+                        <div class="icon-bubble" id="defaultIcon">📊</div>
+                        <h2>Awaiting Analysis</h2>
+                        <p>Configure the customer's attributes on the left or select a demo profile above, then click <strong>Analyze Customer Risk</strong>.</p>
+                    </div>
+
+                    <!-- Output state -->
+                    <div class="results-content hidden" id="resultsContent">
+                        <h2>Retention Risk Report</h2>
+                        
+                        <!-- Visual Gauge -->
+                        <div class="gauge-wrapper">
+                            <svg class="progress-ring" width="200" height="200">
+                                <circle class="progress-ring__background" stroke="rgba(255,255,255,0.05)" stroke-width="12" fill="transparent" r="80" cx="100" cy="100"/>
+                                <circle class="progress-ring__circle" stroke="#3b82f6" stroke-width="12" fill="transparent" r="80" cx="100" cy="100"/>
+                            </svg>
+                            <div class="gauge-text">
+                                <span class="gauge-percentage" id="probaText">0%</span>
+                                <span class="gauge-label">Churn Prob.</span>
+                            </div>
+                        </div>
+
+                        <!-- Risk Alert -->
+                        <div class="risk-badge" id="riskBadge">
+                            <span id="riskLabel">LOW RISK</span>
+                        </div>
+
+                        <div class="risk-summary" id="riskSummaryText">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="action-recommendation" id="recommendationCard">
+                            <h4>Suggested Account Action</h4>
+                            <p id="recommendationText">Review customer's experience periodically. Standard onboarding protocols apply.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripting -->
+    <script>
+        // API Base configuration
+       // const API_URL = 'http://localhost:8000';
+        const API_URL = window.location.origin;
+
+        // Elements
+        const form = document.getElementById('churnForm');
+        const tenureInput = document.getElementById('tenure');
+        const tenureVal = document.getElementById('tenureVal');
+        
+        const resultsCard = document.getElementById('resultsCard');
+        const resultsDefault = document.getElementById('resultsDefault');
+        const defaultIcon = document.getElementById('defaultIcon');
+        const spinner = document.getElementById('spinner');
+        const resultsContent = document.getElementById('resultsContent');
+        
+        const probaText = document.getElementById('probaText');
+        const riskBadge = document.getElementById('riskBadge');
+        const riskLabel = document.getElementById('riskLabel');
+        const riskSummaryText = document.getElementById('riskSummaryText');
+        const recommendationText = document.getElementById('recommendationText');
+        
+        const circle = document.querySelector('.progress-ring__circle');
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+
+        // Init Progress Ring
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = circumference;
+
+        function setProgress(percent) {
+            const offset = circumference - (percent / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        // Live values
+        tenureInput.addEventListener('input', (e) => {
+            tenureVal.textContent = e.target.value;
+            // Approximate total charges for ease of use
+            updateTotalChargesEstimation();
+        });
+
+        const monthlyChargesInput = document.getElementById('MonthlyCharges');
+        monthlyChargesInput.addEventListener('input', () => {
+            updateTotalChargesEstimation();
+        });
+
+        function updateTotalChargesEstimation() {
+            const tenure = parseInt(tenureInput.value) || 0;
+            const monthly = parseFloat(monthlyChargesInput.value) || 0;
+            document.getElementById('TotalCharges').value = (tenure * monthly).toFixed(2);
+        }
+
+        // Presets data
+        const presets = {
+            highRisk: {
+                gender: 'Female',
+                SeniorCitizen: '1',
+                Partner: 'No',
+                Dependents: 'No',
+                tenure: 3,
+                PhoneService: 'Yes',
+                MultipleLines: 'Yes',
+                InternetService: 'Fiber optic',
+                OnlineSecurity: 'No',
+                OnlineBackup: 'No',
+                DeviceProtection: 'No',
+                TechSupport: 'No',
+                StreamingTV: 'Yes',
+                StreamingMovies: 'Yes',
+                Contract: 'Month-to-month',
+                PaperlessBilling: 'Yes',
+                PaymentMethod: 'Electronic check',
+                MonthlyCharges: 98.85
+            },
+            lowRisk: {
+                gender: 'Male',
+                SeniorCitizen: '0',
+                Partner: 'Yes',
+                Dependents: 'Yes',
+                tenure: 64,
+                PhoneService: 'Yes',
+                MultipleLines: 'Yes',
+                InternetService: 'DSL',
+                OnlineSecurity: 'Yes',
+                OnlineBackup: 'Yes',
+                DeviceProtection: 'Yes',
+                TechSupport: 'Yes',
+                StreamingTV: 'No',
+                StreamingMovies: 'No',
+                Contract: 'Two year',
+                PaperlessBilling: 'No',
+                PaymentMethod: 'Bank transfer (automatic)',
+                MonthlyCharges: 65.20
+            },
+            typical: {
+                gender: 'Female',
+                SeniorCitizen: '0',
+                Partner: 'Yes',
+                Dependents: 'No',
+                tenure: 24,
+                PhoneService: 'Yes',
+                MultipleLines: 'No',
+                InternetService: 'DSL',
+                OnlineSecurity: 'Yes',
+                OnlineBackup: 'No',
+                DeviceProtection: 'No',
+                TechSupport: 'No',
+                StreamingTV: 'No',
+                StreamingMovies: 'No',
+                Contract: 'One year',
+                PaperlessBilling: 'Yes',
+                PaymentMethod: 'Credit card (automatic)',
+                MonthlyCharges: 49.95
+            }
+        };
+
+        function fillPreset(profileKey) {
+            const data = presets[profileKey];
+            for (const key in data) {
+                const el = document.getElementById(key);
+                if (el) {
+                    el.value = data[key];
+                    if (key === 'tenure') {
+                        tenureVal.textContent = data[key];
+                    }
+                }
+            }
+            updateTotalChargesEstimation();
+            
+            // Highlight card pulse
+            resultsCard.classList.add('pulse-glow');
+            setTimeout(() => resultsCard.classList.remove('pulse-glow'), 600);
+        }
+
+        document.getElementById('presetHighRisk').addEventListener('click', () => fillPreset('highRisk'));
+        document.getElementById('presetLowRisk').addEventListener('click', () => fillPreset('lowRisk'));
+        document.getElementById('presetTypical').addEventListener('click', () => fillPreset('typical'));
+
+        // Form Submit Prediction API call
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Set loading state
+            resultsDefault.classList.remove('hidden');
+            resultsContent.classList.add('hidden');
+            defaultIcon.classList.add('hidden');
+            spinner.classList.remove('hidden');
+            resultsCard.classList.remove('empty-state');
+
+            // Gather inputs
+            const payload = {
+                gender: document.getElementById('gender').value,
+                SeniorCitizen: parseInt(document.getElementById('SeniorCitizen').value),
+                Partner: document.getElementById('Partner').value,
+                Dependents: document.getElementById('Dependents').value,
+                tenure: parseInt(document.getElementById('tenure').value),
+                PhoneService: document.getElementById('PhoneService').value,
+                MultipleLines: document.getElementById('MultipleLines').value,
+                InternetService: document.getElementById('InternetService').value,
+                OnlineSecurity: document.getElementById('OnlineSecurity').value,
+                OnlineBackup: document.getElementById('OnlineBackup').value,
+                DeviceProtection: document.getElementById('DeviceProtection').value,
+                TechSupport: document.getElementById('TechSupport').value,
+                StreamingTV: document.getElementById('StreamingTV').value,
+                StreamingMovies: document.getElementById('StreamingMovies').value,
+                Contract: document.getElementById('Contract').value,
+                PaperlessBilling: document.getElementById('PaperlessBilling').value,
+                PaymentMethod: document.getElementById('PaymentMethod').value,
+                MonthlyCharges: parseFloat(document.getElementById('MonthlyCharges').value),
+                TotalCharges: parseFloat(document.getElementById('TotalCharges').value)
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/predict`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('API server returned an error: ' + response.statusText);
+                }
+
+                const data = await response.json();
+                renderResults(data, payload);
+            } catch (err) {
+                alert('Inference Failed: ' + err.message);
+                resetUI();
+            }
+        });
+
+        function resetUI() {
+            resultsDefault.classList.remove('hidden');
+            defaultIcon.classList.remove('hidden');
+            spinner.classList.add('hidden');
+            resultsContent.classList.add('hidden');
+            resultsCard.classList.add('empty-state');
+        }
+
+        function renderResults(data, inputs) {
+            // Hide loading states
+            spinner.classList.add('hidden');
+            resultsDefault.classList.add('hidden');
+            resultsContent.classList.remove('hidden');
+
+            const prob = data.churn_probability;
+            const probPct = Math.round(prob * 100);
+
+            // Set percentage and progress ring
+            probaText.textContent = `${probPct}%`;
+            setProgress(probPct);
+
+            // Risk labels
+            const isHigh = data.churn_prediction === 1;
+            riskLabel.textContent = data.risk_label + ' RISK';
+            
+            // Clean up old theme classes
+            riskBadge.className = 'risk-badge';
+            circle.style.stroke = '';
+
+            if (isHigh) {
+                riskBadge.classList.add('risk-high');
+                circle.style.stroke = '#ef4444'; // Red
+                riskSummaryText.innerHTML = `This customer has a high likelihood of cancelling their subscription (<strong>${probPct}%</strong> risk). This is strongly influenced by their <strong>${inputs.Contract.toLowerCase()}</strong> contract and <strong>${inputs.InternetService.toLowerCase()}</strong> internet package.`;
+                
+                recommendationText.innerHTML = `<strong>Immediate Actions Needed:</strong><br>
+                1. Offer a promotional 1-year or 2-year contract discount.<br>
+                2. Direct check-in from customer success team.<br>
+                3. Propose a Payment Method migration away from ${inputs.PaymentMethod} (e.g. Credit Card Auto-pay) to improve loyalty retention.`;
+            } else {
+                riskBadge.classList.add('risk-low');
+                circle.style.stroke = '#22c55e'; // Green
+                riskSummaryText.innerHTML = `This customer is stable and likely to remain with the provider (risk is only <strong>${probPct}%</strong>). Loyal markers: <strong>${inputs.Contract.toLowerCase()} contract</strong> and a tenure of <strong>${inputs.tenure} months</strong>.`;
+                
+                recommendationText.innerHTML = `<strong>Growth Actions:</strong><br>
+                1. Standard customer maintenance check-ins.<br>
+                2. Eligible for premium upselling or supplementary add-on upgrades (e.g., Device Protection or Online Backups).`;
+            }
+        }
+    </script>
+</body>
+</html>
